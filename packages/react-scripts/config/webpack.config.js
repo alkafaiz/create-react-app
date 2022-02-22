@@ -627,7 +627,7 @@ module.exports = function (webpackEnv) {
     plugins: [
       new BundleTracker({
         path: __dirname,
-        filename: `../../webpack-stats-${process.env.APP_NAME}.json`,
+        filename: `${paths.statsPath}/webpack-stats-${process.env.APP_NAME}.json`,
         relativePath: true,
         publicPath: `/dashboard/${process.env.APP_NAME}/static/`,
       }),
