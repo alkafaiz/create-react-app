@@ -628,7 +628,7 @@ module.exports = function (webpackEnv) {
       new BundleTracker({
         path: paths.statsPath,
         filename: `webpack-stats-${process.env.APP_NAME}.json`,
-        relativePath: false,
+        relativePath: true,
         publicPath: `/dashboard/${process.env.APP_NAME}/static/`,
       }),
       // Generates an `index.html` file with the <script> injected.
