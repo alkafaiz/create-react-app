@@ -208,6 +208,21 @@ module.exports = function (webpackEnv) {
         ? 'source-map'
         : false
       : isEnvDevelopment && 'cheap-module-source-map',
+    // tigerlab specific settings
+    devServer: {
+      devMiddleware: {
+        index: false
+      },
+      contentBase: path.appBuild,
+      hot: true,
+      publicPath: path.appBuild,
+      port: 3000,
+      proxy: [{
+        context: ['**', '!/static/**', '!/media/**'],
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      }]
+    },
     // These are the "entry points" to our application.
     // This means they will be the "root" imports that are included in JS bundle.
     entry: paths.appIndexJs,
@@ -218,9 +233,7 @@ module.exports = function (webpackEnv) {
       pathinfo: isEnvDevelopment,
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
-      filename: isEnvProduction
-        ? 'static/js/[name].[contenthash:8].js'
-        : isEnvDevelopment && 'static/js/bundle.js',
+      filename: 'static/js/[name].[contenthash:8].js',
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename: isEnvProduction
         ? 'static/js/[name].[contenthash:8].chunk.js'
@@ -806,20 +819,5 @@ module.exports = function (webpackEnv) {
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
     performance: false,
-    // tigerlab specific settings
-    devServer: {
-      devMiddleware: {
-        index: false
-      },
-      contentBase: path.appBuild,
-      hot: true,
-      publicPath: path.appBuild,
-      port: 3000,
-      proxy: [{
-        context: ['**', '!/static/**', '!/media/**'],
-        target: 'http://localhost:8000',
-        changeOrigin: true,
-      }]
-    },
   };
 };
