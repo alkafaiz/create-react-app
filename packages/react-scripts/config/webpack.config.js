@@ -38,6 +38,8 @@ const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
 // @remove-on-eject-end
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash');
 
+const BundleTracker = require('webpack-bundle-tracker');
+
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 
@@ -254,6 +256,14 @@ module.exports = function (webpackEnv) {
       level: 'none',
     },
     optimization: {
+      // tigerlab specific settings
+      splitChunks: {
+        name: 'vendors',
+        minSize: 10
+      },
+      runtimeChunk: {
+        name: 'runtime-main'
+      },
       minimize: isEnvProduction,
       minimizer: [
         // This is only used in production mode
@@ -602,6 +612,12 @@ module.exports = function (webpackEnv) {
       ].filter(Boolean),
     },
     plugins: [
+      new BundleTracker({
+        path: __dirname,
+        filename: `../../webpack-stats-${process.env.APP_NAME}.json`,
+        relativePath: true,
+        publicPath: `/dashboard/${process.env.APP_NAME}/static/`,
+      }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
@@ -790,5 +806,20 @@ module.exports = function (webpackEnv) {
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
     performance: false,
+    // tigerlab specific settings
+    devServer: {
+      devMiddleware: {
+        index: false
+      },
+      contentBase: path.appBuild,
+      hot: true,
+      publicPath: path.appBuild,
+      port: 3000,
+      proxy: [{
+        context: ['**', '!/static/**', '!/media/**'],
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      }]
+    },
   };
 };

@@ -1,7 +1,7 @@
 {
-  "name": "react-scripts",
+  "name": "alkafaiz-react-scripts",
   "version": "5.0.0",
-  "description": "Configuration and scripts for Create React App.",
+  "description": "Configuration and scripts for Create React App @ tigerlab.",
   "repository": {
     "type": "git",
     "url": "https://github.com/facebook/create-react-app.git",
@@ -74,7 +74,8 @@
     "webpack": "^5.64.4",
     "webpack-dev-server": "^4.6.0",
     "webpack-manifest-plugin": "^4.0.2",
-    "workbox-webpack-plugin": "^6.4.1"
+    "workbox-webpack-plugin": "^6.4.1",
+    "webpack-bundle-tracker": "^0.4.3"
   },
   "devDependencies": {
     "react": "^17.0.2",

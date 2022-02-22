@@ -97,6 +97,9 @@ module.exports = function (proxy, allowedHost) {
       // from the root.
       // remove last slash so user can land on `/test` instead of `/test/`
       publicPath: paths.publicUrlOrPath.slice(0, -1),
+      // tigerlab specific settings
+      writeToDisk: true,
+      serverSideRender: true
     },
 
     https: getHttpsConfig(),
