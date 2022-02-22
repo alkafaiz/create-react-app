@@ -58,8 +58,6 @@ const resolveModule = (resolveFn, filePath) => {
   return resolveFn(`${filePath}.js`);
 };
 
-const statsPath = path.dirname(appDirectory)
-
 // config after eject: we're in ./config/
 module.exports = {
   dotenv: resolveApp('.env'),
@@ -80,7 +78,7 @@ module.exports = {
   appTsBuildInfoFile: resolveApp('node_modules/.cache/tsconfig.tsbuildinfo'),
   swSrc: resolveModule(resolveApp, 'src/service-worker'),
   publicUrlOrPath: `/dashboard/${process.env.APP_NAME}/static/`,
-  statsPath
+  statsPath: resolveApp(buildPath)
 };
 
 // @remove-on-eject-begin
