@@ -156,7 +156,11 @@ function verifyTypeScriptSetup() {
           : 'react',
       reason: 'to support the new JSX transform in React 17',
     },
-    paths: { value: undefined, reason: 'aliased imports are not supported' },
+    // Disabling this config value to allow the custom template to add
+    // alias imports in test-utils
+    //
+    // Faiz Alkautsar, 23.02.2022
+    // paths: { value: undefined, reason: 'aliased imports are not supported' },
   };
 
   const formatDiagnosticHost = {
